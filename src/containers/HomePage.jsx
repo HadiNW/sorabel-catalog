@@ -14,7 +14,6 @@ class Home extends Component {
       <div className="container">
         <div className="row">
           <Category categories={categories} />
-          <Products products={products}/>
         </div>
       </div>
     );

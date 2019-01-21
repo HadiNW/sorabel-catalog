@@ -1,6 +1,7 @@
 const initState = {
   products: [],
-  error: null
+  error: null,
+  loading: false
 };
 
 const productReducer = (state = initState, action) => {
@@ -8,19 +9,23 @@ const productReducer = (state = initState, action) => {
   switch (action.type) {
     case "GET_PRODUCTS_LOADING":
       return {
-        ...state
+        ...state,
+        loading: true,
+
       };
     case "GET_PRODUCTS_SUCCESS":
       console.log(action.payload, "ACTIONNNN");
       return {
         ...state,
         products: action.payload,
-        error: null
+        error: null,
+        loading: false
       };
     case "GET_PRODUCTS_ERROR":
       return {
         ...state,
-        error: null
+        error: action.payload,
+        loading: false
       };
 
     default:

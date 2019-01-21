@@ -8,7 +8,7 @@ const Product = (props) => {
 
     <div className="col-md-6 mb-1">
       <div className="card ml-0" style={{ width: "25rem" }}>
-       <Link to={`/category/${id}`}>
+       <Link to={`/product/${id}`}>
         <img
             className="card-img-top"
             src={mainImage}
@@ -17,7 +17,7 @@ const Product = (props) => {
        </Link>
         
         <div className="card-body">
-          <h5 className="card-title"><Link style={{color: 'black', textDecoration: 'none'}} to={`/category/${id}`}>{productName}</Link></h5>
+          <h5 className="card-title"><Link style={{color: 'black', textDecoration: 'none'}} to={`/product/${id}`}>{productName}</Link></h5>
           <p className="card-text">{sizes.join(',')}</p>
           <p className="card-text"> Rp. {price} </p>
           <button className="btn btn-primary">
@@ -31,9 +31,5 @@ const Product = (props) => {
     </div>
   );
 };
-const styles = {
-    productCard: {
-        width: '80%'
-    }
-}
+
 export default Product;
