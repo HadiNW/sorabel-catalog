@@ -9,6 +9,9 @@ import { connect } from "react-redux";
 
 import { createProduct } from "../../../store/actions/productActions";
 
+import { storage } from "../../../config/firebaseConfig";
+import FileUploader from "react-firebase-file-uploader";
+
 class ProductAdd extends Component {
   state = {
     productName: "",
@@ -22,23 +25,54 @@ class ProductAdd extends Component {
   onChangeHandler = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
-
-  onSubmitHandler = e => {
-    e.preventDefault();
-    const newProduct = {
-      ...this.state,
-      sizes: this.state.sizes.split(",")
-    };
-    this.props.createProduct(newProduct);
-    this.setState({
-      productName: "",
-      productCategory: "",
-      price: 0,
-      mainImage: "",
-      images: [],
-      sizes: []
-    });
+  onMainImageChange = e => {
+    console.log(e.target.files[0].name);
+    this.setState({ mainImage: e.target.files[0] });
   };
+
+  onImagesChange = e => {
+    console.log(e.target.files);
+    this.setState({ images: e.target.files });
+  };
+
+  uploadImage = () => {};
+
+  onSubmitHandler = async e => {
+    e.preventDefault();
+    try {
+      const { mainImage, images } = this.state;
+      const mainImageRef = storage.ref("productImage/" + mainImage.name);
+
+      const imagesURL = [];
+      for (let i = 0; i < images.length; i++) {
+        const imgRef = storage.ref("productImage/" + images[i].name);
+        await imgRef.put(images[i]);
+        imagesURL.push(await imgRef.getDownloadURL());
+      }
+
+      await mainImageRef.put(mainImage);
+      const url = await mainImageRef.getDownloadURL();
+      const newProduct = {
+        ...this.state,
+        mainImage: url,
+        images: imagesURL,
+        sizes: this.state.sizes.split(",")
+      };
+      this.props.createProduct(newProduct);
+      this.setState({
+        productName: "",
+        productCategory: "",
+        price: 0,
+        mainImage: "",
+        progress: "",
+        images: [],
+        sizes: []
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     return (
       <>
@@ -82,7 +116,7 @@ class ProductAdd extends Component {
                       onChange={this.onChangeHandler}
                       value={this.state.productCategory}
                     >
-                      <option value=""  disabled>
+                      <option value="" disabled>
                         please select a category
                       </option>
                       {this.props.categories &&
@@ -102,7 +136,19 @@ class ProductAdd extends Component {
                       placeholder="please use a comma (,) separator"
                       onChange={this.onChangeHandler}
                       value={this.state.sizes}
-                      min="0"
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="mainImage">Main Image</label>
+                    <input type="file" onChange={this.onMainImageChange} />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="mainImage">Other Image</label>
+                    <input
+                      type="file"
+                      multiple
+                      onChange={this.onImagesChange}
                     />
                   </div>
                   <button type="submit" className="btn btn-primary">
