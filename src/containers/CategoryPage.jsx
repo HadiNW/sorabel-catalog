@@ -13,32 +13,31 @@ class CategoryPage extends Component {
     loadedProducts: []
   };
   loadMore = async id => {
-    console.log('=== REQUESTING ===')
     const { products } = this.props;
     const lastProduct = products && products[products.length - 1];
-    console.log(lastProduct, 'LASP')
     const nextProduct = await this.props.getProductByCategory(id, lastProduct);
-    console.log(nextProduct.docs.length, "NEXT P  <= 1");
     if (nextProduct && nextProduct.docs && nextProduct.docs.length <= 2) {
       this.setState({ moreProducts: false });
     }
-    console.log(this.state.moreProducts, 'MMMMM')
+    console.log(this.state.moreProducts, "MMMMM");
   };
 
   async componentDidMount() {
-    const nextProduct = await this.props.getProductByCategory(this.props.match.params.id)
+    const nextProduct = await this.props.getProductByCategory(
+      this.props.match.params.id
+    );
     console.log(nextProduct.docs.length, "NEXT P  >>>>= 1");
     if (nextProduct && nextProduct.docs && nextProduct.docs.length > 1) {
       this.setState({
         moreProducts: true,
         loadingInitial: false
-      })
+      });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const some = this.props.products !== nextProps.products
-    console.log(some, 'xxxx SOME xxxx')
+    const some = this.props.products !== nextProps.products;
+    console.log(some, "xxxx SOME xxxx");
     if (some) {
       this.setState({
         loadedProducts: [...this.state.loadedProducts, ...nextProps.products]
@@ -46,7 +45,7 @@ class CategoryPage extends Component {
     }
   }
   render() {
-    const { loading } = this.props
+    const { loading } = this.props;
     const { moreProducts, loadingInitial, loadedProducts } = this.state;
     return (
       <>

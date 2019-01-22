@@ -14,7 +14,7 @@ class Home extends Component {
     return (
       <>
       <Navbar />
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
           <Category categories={categories} />
         </div>

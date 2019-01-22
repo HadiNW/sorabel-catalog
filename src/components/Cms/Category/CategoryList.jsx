@@ -5,28 +5,40 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { deleteCategory } from "../../../store/actions/categoryAction";
 
-class CategoryList extends Component {
-  deleteHandler = id => {
-    this.props.deleteCategory(id);
-  };
-
-  render() {
-    const { categories } = this.props;
-    return (
-      <div>
+const CategoryList = props => {
+  
+  const { categories } = props;
+  return (
+    <table className="table mt-4">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product</th>
+          <th scope="col">Image</th>
+          <th scope="col">Act</th>
+        </tr>
+      </thead>
+      <tbody>
         {categories &&
-          categories.map(category => (
-            <li key={category.id}>
-              {category.categoryName}{" "}
-              <span onClick={() => this.deleteHandler(category.id)}>
-                DELETE
-              </span>
-            </li>
+          categories.map((category, i) => (
+            <tr key={category.id}>
+              <td>{i + 1}</td>
+              <td>{category.categoryName}</td>
+              <td><img style={{width: '100px'}} src={category.image} alt="category"/></td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => props.deleteCategory(category.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
           ))}
-      </div>
-    );
-  }
-}
+      </tbody>
+    </table>
+  );
+};
 
 const mapStateToProps = state => {
   return {
@@ -41,6 +53,9 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect([{ collection: "categories" }])
 )(CategoryList);

@@ -11,6 +11,7 @@ import { createProduct } from "../../../store/actions/productActions";
 
 import { storage } from "../../../config/firebaseConfig";
 import FileUploader from "react-firebase-file-uploader";
+import NavbarCms from "../UI/NavbarCms";
 
 class ProductAdd extends Component {
   state = {
@@ -26,12 +27,12 @@ class ProductAdd extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
   onMainImageChange = e => {
-    console.log(e.target.files[0].name);
+    if (e.target.files[0].name === "") return;
     this.setState({ mainImage: e.target.files[0] });
   };
 
   onImagesChange = e => {
-    console.log(e.target.files);
+    if (e.target.files === "") return;
     this.setState({ images: e.target.files });
   };
 
@@ -52,10 +53,11 @@ class ProductAdd extends Component {
 
       await mainImageRef.put(mainImage);
       const url = await mainImageRef.getDownloadURL();
+      console.log(imagesURL, "images");
       const newProduct = {
         ...this.state,
         mainImage: url,
-        images: imagesURL,
+        images: [url, ...imagesURL],
         sizes: this.state.sizes.split(",")
       };
       this.props.createProduct(newProduct);
@@ -64,7 +66,6 @@ class ProductAdd extends Component {
         productCategory: "",
         price: 0,
         mainImage: "",
-        progress: "",
         images: [],
         sizes: []
       });
@@ -76,7 +77,7 @@ class ProductAdd extends Component {
   render() {
     return (
       <>
-        <Navbar />
+        <NavbarCms />
         <div className="container">
           <div className="row mt-5">
             <div className="col-md-3">
@@ -141,15 +142,21 @@ class ProductAdd extends Component {
                   </div>
                   <div className="form-group">
                     <label htmlFor="mainImage">Main Image</label>
-                    <input type="file" onChange={this.onMainImageChange} />
+                    <input
+                      className="form-control"
+                      type="file"
+                      onChange={this.onMainImageChange}
+                    />
                   </div>
                   <div className="form-group">
                     <label htmlFor="mainImage">Other Image</label>
                     <input
+                      className="form-control"
                       type="file"
                       multiple
                       onChange={this.onImagesChange}
                     />
+                    <span className="text-info">You can choose multiple images here</span>
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Submit

@@ -22,7 +22,7 @@ class ProductDetail extends Component {
             />
             <div className="card-deck mx-1 my-2">
               {product.images.map((img, i) => (
-                <div className={`${previewClass} ${img === this.state.image && 'border-success'}`} key={i}>
+                <div style={{maxWidth: '5rem'}} className={`${previewClass} ${img === this.state.image && 'border-success'}`} key={i}>
                   <img
                     src={img}
                     className="card-img-top"
