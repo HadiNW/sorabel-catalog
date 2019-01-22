@@ -9,6 +9,9 @@ import HomePage from "./containers/HomePage";
 import CategoryPage from "./containers/CategoryPage";
 import ProductDetailPage from './containers/ProductDetailPage'
 
+import CategoryAdd from './components/Cms/Category/CategoryAdd'
+import ProductAdd from './components/Cms/Product/ProductAdd'
+
 class App extends Component {
   render() {
     return (
@@ -19,6 +22,8 @@ class App extends Component {
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/category/:id" component={CategoryPage} />
                 <Route exact path="/product/:id" component={ProductDetailPage} />
+                <Route exact path="/cms/category" component={CategoryAdd} />
+                <Route exact path="/cms/product" component={ProductAdd} />
               </Switch>
             </>
           </Router>   

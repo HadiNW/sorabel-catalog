@@ -18,7 +18,7 @@ const Product = (props) => {
         
         <div className="card-body">
           <h5 className="card-title"><Link style={{color: 'black', textDecoration: 'none'}} to={`/product/${id}`}>{productName}</Link></h5>
-          <p className="card-text">{sizes.join(',')}</p>
+          <p className="btn btn-secondary btn-size">{sizes.join(', ')}</p>
           <p className="card-text"> Rp. {price} </p>
           <button className="btn btn-primary">
             <i className="fa fa-cart-plus" /> Buy

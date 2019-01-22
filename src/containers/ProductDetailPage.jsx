@@ -21,7 +21,7 @@ class ProductDetailPage extends Component {
         {
           this.state.load ? 
           <>
-          <Navbar />
+          <Navbar props={this.props} url={'product'} />
           <div className="container  d-flex justify-content-center mt-4">
             <ProductDetail product={product && product[0]} />
           </div>  

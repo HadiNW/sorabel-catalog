@@ -10,8 +10,7 @@ const productReducer = (state = initState, action) => {
     case "GET_PRODUCTS_LOADING":
       return {
         ...state,
-        loading: true,
-
+        loading: true
       };
     case "GET_PRODUCTS_SUCCESS":
       console.log(action.payload, "ACTIONNNN");
@@ -27,6 +26,9 @@ const productReducer = (state = initState, action) => {
         error: action.payload,
         loading: false
       };
+
+    case "CREATE_PRODUCTS_SUCCESS":
+      return state
 
     default:
       return state;

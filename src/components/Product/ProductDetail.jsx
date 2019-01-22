@@ -9,6 +9,7 @@ class ProductDetail extends Component {
     this.setState({ image: this.props.product.mainImage });
   }
   render() {
+    const previewClass = "card"
     const { product } = this.props;
     if (product) {
       return (
@@ -19,19 +20,20 @@ class ProductDetail extends Component {
               src={this.state.image}
               alt="product"
             />
-            <div className="card-deck">
+            <div className="card-deck mx-1 my-2">
               {product.images.map((img, i) => (
-                <div className="card" key={i}>
+                <div className={`${previewClass} ${img === this.state.image && 'border-success'}`} key={i}>
                   <img
                     src={img}
                     className="card-img-top"
                     alt="product"
-                    onClick={() => this.setState({ image: img })}
+                    onClick={() => {
+                      this.setState({ image: img })
+                    }}
                   />
                 </div>
               ))}
             </div>
-            <h1>{JSON.stringify(this.state.product)}</h1>
             <div className="card-body">
               <h5 className="card-title">{product.productName}</h5>
               <p className="card-text">{product.sizes.join(",")}</p>

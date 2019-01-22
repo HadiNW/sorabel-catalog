@@ -2,7 +2,7 @@ import firebase from "../../config/firebaseConfig";
 
 export const getProductByCategory = (categoryId, lastProduct) => {
   return async (dispatch, getState, { getFirebase, getFirestore }) => {
-    // dispatch({ type: "GET_PRODUCTS_LOADING" });
+   
     const firestore = firebase.firestore();
     try {
       const startAfter =
@@ -39,3 +39,37 @@ export const getProductByCategory = (categoryId, lastProduct) => {
     }
   };
 };
+
+
+export const createProduct = (product) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = firebase.firestore();
+    firestore
+      .collection('products')
+      .add({...product})
+      .then(() => {
+        dispatch({ type: "CREATE_PRODUCTS_SUCCESS"});
+      })
+      .catch(err => {
+        // dispatch({ type: "CREATE_PRODUCTS_ERROR"});
+      })
+
+  }
+}
+
+export const deleteProduct = (id) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = firebase.firestore();
+    firestore
+      .collection('products')
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "DELETE_PRODUCTS_SUCCESS"});
+      })
+      .catch(err => {
+        dispatch({ type: "CREATE_PRODUCTS_ERROR"});
+      })
+
+  }
+}

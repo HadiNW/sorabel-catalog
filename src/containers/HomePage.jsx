@@ -6,16 +6,20 @@ import Category from "../components/UI/Category";
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
+import Navbar from "../components/UI/Navbar";
 
 class Home extends Component {
   render() {
       const { categories, products } = this.props
     return (
+      <>
+      <Navbar />
       <div className="container">
         <div className="row">
           <Category categories={categories} />
         </div>
       </div>
+      </>
     );
   }
 }
