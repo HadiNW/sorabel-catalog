@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import Products from "../components/Product/Products";
 import Category from "../components/UI/Category";
 
 import { compose } from 'redux'
@@ -10,7 +9,7 @@ import Navbar from "../components/UI/Navbar";
 
 class Home extends Component {
   render() {
-      const { categories, products } = this.props
+      const { categories } = this.props
     return (
       <>
       <Navbar />

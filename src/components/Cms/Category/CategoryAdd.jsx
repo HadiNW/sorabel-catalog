@@ -22,7 +22,6 @@ class CategoryAdd extends Component {
     e.preventDefault();
     try {
       const { image } = this.state;
-      console.log(image, 'image')
       const imageRef = storage.ref("categoryImage/" + image.name);
       await imageRef.put(image);
       const url = await imageRef.getDownloadURL();
@@ -42,7 +41,6 @@ class CategoryAdd extends Component {
   onImageChange = e => {
     if (e.target.files[0].name === "") return;
     this.setState({ image: e.target.files[0] });
-    console.log(e.target.files[0].name)
   };
 
   render() {

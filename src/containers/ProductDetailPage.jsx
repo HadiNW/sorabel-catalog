@@ -7,27 +7,29 @@ import { compose } from "redux";
 
 class ProductDetailPage extends Component {
   state = {
-    load : false
-  }
+    load: false
+  };
 
   componentWillReceiveProps(nextState) {
-    this.setState({ load: true})
+    this.setState({ load: true });
   }
   render() {
     const { product } = this.props;
 
     return (
-      <>      
-        {
-          this.state.load ? 
+      <>
+        {this.state.load ? (
           <>
-          <Navbar props={this.props} url={'product'} />
-          <div className="container  d-flex justify-content-center mt-4">
-            <ProductDetail product={product && product[0]} />
-          </div>  
+            <Navbar props={this.props} url={"product"} />
+            <div className="container  d-flex justify-content-center mt-4">
+              <ProductDetail product={product && product[0]} />
+            </div>
           </>
-          : <h1>loading ..</h1>
-        }
+        ) : (
+          <div className="container mt-5">
+            <h3 className="text-secondary">Loading ..</h3>
+          </div>
+        )}
       </>
     );
   }

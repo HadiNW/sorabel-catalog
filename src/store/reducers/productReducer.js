@@ -5,7 +5,6 @@ const initState = {
 };
 
 const productReducer = (state = initState, action) => {
-  console.log("TEST", action.payload);
   switch (action.type) {
     case "GET_PRODUCTS_LOADING":
       return {
@@ -13,7 +12,6 @@ const productReducer = (state = initState, action) => {
         loading: true
       };
     case "GET_PRODUCTS_SUCCESS":
-      console.log(action.payload, "ACTIONNNN");
       return {
         ...state,
         products: action.payload,

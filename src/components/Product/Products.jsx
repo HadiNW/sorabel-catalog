@@ -5,7 +5,6 @@ import InfiniteScroll from "react-infinite-scroller";
 
 const Products = props => {
   const { products, moreProducts, loadMore, loading } = props;
-  console.log(moreProducts, "HAS MORE");
   return (
     <div className="container d-flex justify-content-center">
       <div className="row mt-4">

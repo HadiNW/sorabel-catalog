@@ -53,7 +53,6 @@ class ProductAdd extends Component {
 
       await mainImageRef.put(mainImage);
       const url = await mainImageRef.getDownloadURL();
-      console.log(imagesURL, "images");
       const newProduct = {
         ...this.state,
         mainImage: url,

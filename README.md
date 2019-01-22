@@ -15,7 +15,10 @@ This web app created with Reactjs and Firestore
 ## How To Run 
 
 ```javascript
-npm install Or yarn install
-npm start Or Yarn start
+npm install or yarn install
+npm start or yarn start
 ```
+
+## Obstacles or bugs
+the products must be greater than 2 to make the infinite scroll works 
 
